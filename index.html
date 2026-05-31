@@ -107,15 +107,15 @@
     <div class="wrap">
       <div class="section-head"><h2>Booking and Payment Rules</h2><p>These rules apply to event babysitting, home babysitting, and cleaning requests.</p></div>
       <div class="split">
-        <div class="box"><h3>Booking</h3><ul><li>Bookings must be requested at least 2 days before the preferred schedule</li><li>Same-day and next-day bookings are not available at this time</li><li>Requests are subject to worker availability, location, service fit, and final confirmation</li><li>Client ID is optional but may be requested for off-site/event services for worker safety</li></ul></div>
-        <div class="box"><h3>Payment</h3><ul><li>Clients may pay the assigned worker directly or pay through WeHelp if that option is arranged</li><li>Payment must be confirmed before service starts</li><li>If payment is made through WeHelp, WeHelp acts as a payment collection facilitator for the confirmed booking</li><li>Transportation, off-site fees, out-of-town fees, venue fees, parking, meal allowance, and similar costs are shouldered by the client when applicable</li></ul></div>
+        <div class="box"><h3>Booking</h3><ul><li>Bookings must be requested at least 2 days before the preferred schedule</li><li>Same-day and next-day bookings are not available at this time</li><li>Requests are subject to worker availability, location, service fit, and final confirmation</li><li>A ₱100 booking confirmation payment is required before the booking is finalized</li><li>Client ID is optional but may be requested for off-site/event services for worker safety</li></ul></div>
+        <div class="box"><h3>Payment</h3><ul><li>The ₱100 booking confirmation payment is deducted from the full service amount and is not an additional fee</li><li>The remaining balance is settled once the service is done</li><li>The confirmation payment may be given in cash directly to the assigned worker or sent through WeHelp online payment channels when arranged</li><li>Clients may pay the final balance directly to the assigned worker or through WeHelp if that option is arranged</li><li>Transportation, off-site fees, out-of-town fees, venue fees, parking, meal allowance, and similar costs are shouldered by the client when applicable</li></ul></div>
       </div>
     </div>
   </section>
 
   <section id="platform">
     <div class="wrap">
-      <div class="notice">WeHelp is a coordination platform, not an employer or service agency. Services are independently provided by the assigned worker and are subject to availability, location, agreed scope, off-site or out-of-town requirements, and final confirmation.</div>
+      <div class="notice">WeHelp is a coordination platform, not an employer or service agency. Services are independently provided by the assigned worker and are subject to availability, location, agreed scope, off-site or out-of-town requirements, payment confirmation, and final confirmation.</div>
     </div>
   </section>
 
@@ -142,7 +142,7 @@
               <div class="field"><label for="preferredTime">Preferred time *</label><input id="preferredTime" name="preferredTime" type="time" required></div>
               <div class="field"><label for="serviceArea">City / area *</label><input id="serviceArea" name="serviceArea" required placeholder="Example: Marikina, Antipolo, Pasig"></div>
               <div class="field full"><label for="serviceLocation">Service location or venue address *</label><textarea id="serviceLocation" name="serviceLocation" required placeholder="For event bookings, include venue name if available."></textarea></div>
-              <div class="field full"><label class="check"><input id="acknowledge" name="acknowledge" type="checkbox" required><span>I understand this is a booking request only. Booking is subject to worker availability, final price confirmation, transportation, applicable fees, and the 2-day advance booking rule.</span></label></div>
+              <div class="field full"><label class="check"><input id="acknowledge" name="acknowledge" type="checkbox" required><span>I understand this is a booking request only. Booking is subject to worker availability, final price confirmation, transportation, applicable fees, the 2-day advance booking rule, and the ₱100 booking confirmation payment.</span></label></div>
             </div>
             <div class="form-actions"><button class="btn btn-primary" type="submit">Done - Copy and Open Selected App</button></div>
             <p id="formStatus" class="form-status" aria-live="polite"></p>
@@ -179,7 +179,7 @@
       'City / area: ' + value('serviceArea'),
       'Service location / venue: ' + value('serviceLocation'),
       '',
-      'I understand this is a booking request only and is subject to availability, final price confirmation, transportation, applicable fees, and the 2-day advance booking rule.'
+      'I understand this is a booking request only and is subject to availability, final price confirmation, transportation, applicable fees, the 2-day advance booking rule, and the ₱100 booking confirmation payment.'
     ].join('\n');
   }
 

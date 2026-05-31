@@ -123,18 +123,20 @@
     <div class="wrap">
       <div class="contact">
         <h2>Request a booking</h2>
-        <p>Fill out the basic request form below. When you tap Done, the site will prepare and copy your booking message, then open Viber. The message is not sent automatically. Paste the message in Viber if needed, review it, then tap Send.</p>
+        <p>Fill out the basic request form below. When you tap Done, the site will prepare and copy your booking message. A pop-up will appear. Tap OK, then paste the copied message in your selected app and send it.</p>
         <div class="form-card">
           <h3>Before you submit</h3>
           <ol class="instruction-list">
             <li>Complete the form with your basic booking details.</li>
-            <li>Tap <strong>Done - Copy and Open Viber</strong>.</li>
-            <li>Paste the copied message in Viber if needed, review it, then tap <strong>Send</strong>.</li>
+            <li>Choose whether to send through <strong>Viber</strong> or <strong>SMS</strong>.</li>
+            <li>Tap <strong>Done - Copy and Open Selected App</strong>.</li>
+            <li>After the pop-up, paste the copied message, review it, then tap <strong>Send</strong>.</li>
           </ol>
           <form id="bookingForm" class="booking-form">
             <div class="form-grid">
               <div class="field"><label for="clientName">Full name *</label><input id="clientName" name="clientName" required autocomplete="name"></div>
               <div class="field"><label for="contactNumber">Contact number *</label><input id="contactNumber" name="contactNumber" required autocomplete="tel"></div>
+              <div class="field"><label for="sendMethod">Send through *</label><select id="sendMethod" name="sendMethod" required><option value="viber">Viber</option><option value="sms">SMS</option></select></div>
               <div class="field"><label for="serviceNeeded">Service needed *</label><select id="serviceNeeded" name="serviceNeeded" required><option value="">Select service</option><option>Event Babysitting</option><option>Home Babysitting</option><option>Cleaning Support</option><option>Not sure yet</option></select></div>
               <div class="field"><label for="preferredDate">Preferred date *</label><input id="preferredDate" name="preferredDate" type="date" required></div>
               <div class="field"><label for="preferredTime">Preferred time *</label><input id="preferredTime" name="preferredTime" type="time" required></div>
@@ -143,7 +145,7 @@
               <div class="field full"><label for="basicScope">Basic scope / notes *</label><textarea id="basicScope" name="basicScope" required placeholder="Example: wedding reception, one child age 6, preferred 4 PM to 8 PM, needs supervision and meal assistance."></textarea></div>
               <div class="field full"><label class="check"><input id="acknowledge" name="acknowledge" type="checkbox" required><span>I understand this is a booking request only. Booking is subject to worker availability, final price confirmation, transportation, applicable fees, and the 2-day advance booking rule.</span></label></div>
             </div>
-            <div class="form-actions"><button class="btn btn-primary" type="submit">Done - Copy and Open Viber</button></div>
+            <div class="form-actions"><button class="btn btn-primary" type="submit">Done - Copy and Open Selected App</button></div>
             <p id="formStatus" class="form-status" aria-live="polite"></p>
             <div id="messagePreview" class="message-preview"><label class="field"><span>Prepared message</span><textarea id="preparedMessage" readonly></textarea></label></div>
           </form>
@@ -155,7 +157,10 @@
 <footer><div class="wrap footer-grid"><span>© 2026 WeHelp.</span><span>WeHelp coordinates client-worker connections. Independent workers provide the services.</span></div></footer>
 <script>
 (function(){
-  const viberLink = 'viber://chat?number=%2B639175912328';
+  const links = {
+    viber: 'viber://chat?number=%2B639175912328',
+    sms: 'sms:+639175912328'
+  };
   const form = document.getElementById('bookingForm');
   const status = document.getElementById('formStatus');
   const previewWrap = document.getElementById('messagePreview');
@@ -193,17 +198,20 @@
   form.addEventListener('submit', async function(e){
     e.preventDefault();
     if(!form.reportValidity()) return;
+    const method = value('sendMethod') || 'viber';
     const message = buildMessage();
     prepared.value = message;
     try{
       await copyText(message);
       previewWrap.style.display = 'none';
-      status.textContent = 'Booking message copied. Viber will open now. Paste the message in Viber if needed, review it, then tap Send.';
+      status.textContent = 'Booking message copied. Tap OK on the pop-up, then paste and send it in your selected app.';
+      alert('Booking message copied.\n\nTap OK. Your selected app will open.\nPaste the message, review it, then send.');
+      window.location.href = links[method] || links.viber;
     }catch(err){
       previewWrap.style.display = 'block';
-      status.textContent = 'Message prepared, but automatic copy may not have worked. Copy the message below, open Viber, paste it, then tap Send.';
+      status.textContent = 'Automatic copy may not have worked. Copy the prepared message below, then send it through Viber or SMS.';
+      alert('The booking message was prepared, but automatic copy may not have worked.\n\nPlease copy the prepared message shown on the page, then send it through Viber or SMS.');
     }
-    setTimeout(function(){ window.location.href = viberLink; }, 600);
   });
 })();
 </script>

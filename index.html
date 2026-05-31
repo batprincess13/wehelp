@@ -142,7 +142,6 @@
               <div class="field"><label for="preferredTime">Preferred time *</label><input id="preferredTime" name="preferredTime" type="time" required></div>
               <div class="field"><label for="serviceArea">City / area *</label><input id="serviceArea" name="serviceArea" required placeholder="Example: Marikina, Antipolo, Pasig"></div>
               <div class="field full"><label for="serviceLocation">Service location or venue address *</label><textarea id="serviceLocation" name="serviceLocation" required placeholder="For event bookings, include venue name if available."></textarea></div>
-              <div class="field full"><label for="basicScope">Basic scope / notes *</label><textarea id="basicScope" name="basicScope" required placeholder="Example: wedding reception, one child age 6, preferred 4 PM to 8 PM, needs supervision and meal assistance."></textarea></div>
               <div class="field full"><label class="check"><input id="acknowledge" name="acknowledge" type="checkbox" required><span>I understand this is a booking request only. Booking is subject to worker availability, final price confirmation, transportation, applicable fees, and the 2-day advance booking rule.</span></label></div>
             </div>
             <div class="form-actions"><button class="btn btn-primary" type="submit">Done - Copy and Open Selected App</button></div>
@@ -179,7 +178,6 @@
       'Preferred time: ' + value('preferredTime'),
       'City / area: ' + value('serviceArea'),
       'Service location / venue: ' + value('serviceLocation'),
-      'Basic scope / notes: ' + value('basicScope'),
       '',
       'I understand this is a booking request only and is subject to availability, final price confirmation, transportation, applicable fees, and the 2-day advance booking rule.'
     ].join('\n');

@@ -123,14 +123,13 @@
     <div class="wrap">
       <div class="contact">
         <h2>Request a booking</h2>
-        <p>Fill out the basic request form below. When you submit, the site will prepare your booking message and open Viber. The message is not sent automatically. Please paste or review the copied message in Viber, then tap Send.</p>
+        <p>Fill out the basic request form below. When you tap Done, the site will prepare and copy your booking message, then open Viber. The message is not sent automatically. Paste the message in Viber if needed, review it, then tap Send.</p>
         <div class="form-card">
           <h3>Before you submit</h3>
           <ol class="instruction-list">
             <li>Complete the form with your basic booking details.</li>
-            <li>Click <strong>Prepare Viber Message</strong>.</li>
-            <li>The booking message will be copied and Viber will open.</li>
-            <li>Paste the message in Viber if it does not appear automatically, review it, then tap <strong>Send</strong>.</li>
+            <li>Tap <strong>Done - Copy and Open Viber</strong>.</li>
+            <li>Paste the copied message in Viber if needed, review it, then tap <strong>Send</strong>.</li>
           </ol>
           <form id="bookingForm" class="booking-form">
             <div class="form-grid">
@@ -144,7 +143,7 @@
               <div class="field full"><label for="basicScope">Basic scope / notes *</label><textarea id="basicScope" name="basicScope" required placeholder="Example: wedding reception, one child age 6, preferred 4 PM to 8 PM, needs supervision and meal assistance."></textarea></div>
               <div class="field full"><label class="check"><input id="acknowledge" name="acknowledge" type="checkbox" required><span>I understand this is a booking request only. Booking is subject to worker availability, final price confirmation, transportation, applicable fees, and the 2-day advance booking rule.</span></label></div>
             </div>
-            <div class="form-actions"><button class="btn btn-primary" type="submit">Prepare Viber Message</button><button class="btn btn-light" type="button" id="copyMessage">Copy Message</button><a class="btn btn-light" href="viber://chat?number=%2B639175912328">Open Viber</a></div>
+            <div class="form-actions"><button class="btn btn-primary" type="submit">Done - Copy and Open Viber</button></div>
             <p id="formStatus" class="form-status" aria-live="polite"></p>
             <div id="messagePreview" class="message-preview"><label class="field"><span>Prepared message</span><textarea id="preparedMessage" readonly></textarea></label></div>
           </form>
@@ -161,7 +160,6 @@
   const status = document.getElementById('formStatus');
   const previewWrap = document.getElementById('messagePreview');
   const prepared = document.getElementById('preparedMessage');
-  const copyButton = document.getElementById('copyMessage');
 
   function value(id){ return document.getElementById(id).value.trim(); }
 
@@ -197,26 +195,15 @@
     if(!form.reportValidity()) return;
     const message = buildMessage();
     prepared.value = message;
-    previewWrap.style.display = 'block';
     try{
       await copyText(message);
+      previewWrap.style.display = 'none';
       status.textContent = 'Booking message copied. Viber will open now. Paste the message in Viber if needed, review it, then tap Send.';
     }catch(err){
-      status.textContent = 'Message prepared. Please copy the message below, open Viber, paste it, then tap Send.';
+      previewWrap.style.display = 'block';
+      status.textContent = 'Message prepared, but automatic copy may not have worked. Copy the message below, open Viber, paste it, then tap Send.';
     }
     setTimeout(function(){ window.location.href = viberLink; }, 600);
-  });
-
-  copyButton.addEventListener('click', async function(){
-    const message = prepared.value || buildMessage();
-    prepared.value = message;
-    previewWrap.style.display = 'block';
-    try{
-      await copyText(message);
-      status.textContent = 'Message copied. Open Viber, paste it, then tap Send.';
-    }catch(err){
-      status.textContent = 'Please select and copy the prepared message manually.';
-    }
   });
 })();
 </script>
